@@ -4,13 +4,15 @@
 args <- commandArgs(trailingOnly=TRUE)
 parent<-args[1]
 setwd(parent)
+outputDir<-"5_dada2"
+dir.create(file.path(parent,outputDir)) #make folder for dada2 output files
 
 library(dada2); packageVersion("dada2")
 library(ggplot2); packageVersion("ggplot2")
 library(phyloseq); packageVersion("phyloseq")
 set.seed(4)
 
-mapping <- "0_mapping/MappingFile.txt"
+mapping <- "0_mapping/mapping.txt"
 filtpath <- paste(parent, "/4_filter", sep="")
 
 # Find filenames ----------------------------------------------------------
@@ -48,9 +50,13 @@ rm(derepFs.s1.learn, derepRs.s1.learn)
 
 # # Visualize estimated error rates
 p<- plotErrors(dadaFs.s1.learn[[1]], nominalQ=TRUE)
-ggsave("dada_errors_F_s1.png", plot=p)
+ggsave(file.path(parent,
+                 outputDir,
+                 "dada_errors_F_s1.png", plot=p))
 p<- plotErrors(dadaRs.s1.learn[[1]], nominalQ=TRUE)
-ggsave("dada_errors_R_s1.png", plot=p)
+ggsave(file.path(parent,
+                 outputDir,
+                 "dada_errors_R_s1.png", plot=p))
 
 
 # Just keep the error profiles
@@ -89,7 +95,9 @@ rm(derepFs.s1, derepRs.s1, dadaFs.s1, dadaRs.s1)
 #follow https://github.com/benjjneb/dada2/issues/134
 
 seqtab.s1 <- makeSequenceTable(mergers.s1)
-saveRDS(seqtab.s1, "seqtab.s1.rds")
+saveRDS(seqtab.s1, file.path(parent,
+                 outputDir,
+                 "seqtab.s1.rds"))
 dim(seqtab.s1)
 # Inspect the distributioh of sequence lengths
 table(nchar(colnames(seqtab.s1)))
@@ -103,13 +111,17 @@ table(nchar(colnames(seqtab.s1)))
 seqtab.s1.nochim <- removeBimeraDenovo(seqtab.s1, method='consensus', multithread=TRUE, verbose=TRUE)
 dim(seqtab.s1.nochim)
 sum(seqtab.s1.nochim)/sum(seqtab.s1)
-saveRDS(seqtab.s1, "seqtab.s1.nochim.rds")
+saveRDS(seqtab.s1, file.path(parent,
+                 outputDir,
+                 "seqtab.s1.nochim.rds"))
 
 
 # Merge Sequence Tables Together ------------------------------------------
 
 seqtab.nochim <- seqtab.s1.nochim
-saveRDS(seqtab.nochim, "seqtab.nochim.rds")
+saveRDS(seqtab.nochim, file.path(parent,
+                 outputDir,
+                 "seqtab.nochim.rds"))
 
 
 # Simplify naming ---------------------------------------------------------
@@ -118,14 +130,14 @@ seqtab <- seqtab.nochim
 
 # Assign Taxonomy ---------------------------------------------------------
 # Following: http://benjjneb.github.io/dada2_pipeline_MV/species.html
-
+silva<-args[2]
 # Assign using Naive Bayes RDP
-taxtab <- assignTaxonomy(colnames(seqtab), '0_training/silva_nr_v123_train_set.fa.gz', multithread=TRUE)
+taxtab <- assignTaxonomy(colnames(seqtab), file.path(silva,'silva_nr_v123_train_set.fa.gz'), multithread=TRUE)
 
 # improve with exact genus-species matches 
 # this step is pretty slow, should improve in later releases
 # - note: Not allowing multiple species matches in default setting
-taxtab <- addSpecies(taxtab, '0_training/silva_species_assignment_v123.fa.gz', verbose=TRUE)
+taxtab <- addSpecies(taxtab, file.path(silva,'silva_species_assignment_v123.fa.gz'), verbose=TRUE)
 
 # How many sequences are classified at different levels? (percent)
 colSums(!is.na(taxtab))/nrow(taxtab)
@@ -147,10 +159,12 @@ colnames(seqtab) <- names(refseq[match(colnames(seqtab), refseq)])
 rownames(taxtab) <- names(refseq[match(rownames(taxtab), refseq)])
 
 # Write the taxtable, seqtable, and refseq to ascii ------------------------
+setwd(file.path(parent,outputDir))
 write.table(seqtab, file='seqtab.nochim.tsv', quote=FALSE, sep='\t')
 write.table(taxtab, file='taxtab.nochim.tsv', quote=FALSE, sep='\t')
 write.table(refseq, file='refseqs.nochim.tsv', quote=FALSE, sep='\t', col.names = F)
 
 # Combine into phyloseq object
 ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),sample_data(map), tax_table(taxtab))
-saveRDS(ps, paste0(args[2],'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
+saveRDS(ps, paste0(args[3],'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
+
