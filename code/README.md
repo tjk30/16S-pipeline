@@ -36,10 +36,75 @@ Save as a tab delimited text file and upload to server
 /path/to/seqdata
   180425_MN00462_0058_A000H2GY73_MV
   SampleSheet.csv
+```
+## Step 1: bcl2fastq
+```{bash}
+sbatch bcl2fastq.sh --mail-user=<youremail>@duke.edu /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
+```
+After running this, your file structure should look like this:
+```
+/path/to/seqdata
+  180425_MN00462_0058_A000H2GY73_MV
+  SampleSheet.csv
   XXXXXXXX_results
+    0_data_raw
+      Undetermined...R1.fastq
+      Undetermined...R2.fastq
+      Undetermined...I1.fastq
+```
+
+Before proceeding, make sure to make a directory called 0_mapping and upload your mapping.txt and barcodes.tsv file to it:
+```
+cd /path/to/seqdata/XXXXXXXX_results
+mkdir 0_mapping
+cp /path/to/mapping.txt 0_mapping
+cp path/to/barcodes.tsv 0_mapping
+```
+
+Now your file structure should look like this:
+```
+/path/to/seqdata
+  180425_MN00462_0058_A000H2GY73_MV
+  SampleSheet.csv
+  XXXXXXXX_results
+    0_data_raw
+      Undetermined...R1.fastq
+      Undetermined...R2.fastq
+      Undetermined...I1.fastq
     0_mapping
-      MappingFile.txt
+      mapping.txt
       barcodes.tsv
+```
+
+### Step 2: Remove primers
+```{bash}
+sbatch --mail-user=youremail@duke.edu remove_primers.sh /path/to/0_data_raw /path/to/metabarcoding.sif
+```
+
+### Step 3: Sync barcodes
+
+```
+sbatch --mail-user=<youremail>@duke.edu 3_sync_barcodes.sh /path/to/XXXXXXXX_results 
+```
+
+### Step 4: Demultiplex
+
+Note: this requires that you already have qiime2 installed (see: "Setup")
+```
+sbatch --mail-user=youremail@duke.edu 4_demultiplex.sh /path/to/XXXXXXXX_results /path/to/qiime2-env
+```
+
+### Step 5: Filter
+Time estimate: ~35 min for a high kit.
+```
+sbatch --mail-user=youremail@duke.edu 5_filtering.sh /path/to/seqdata/XXXXXXXX_results /path/to/metabarcoding.sif
+```
+
+### Step 6: Run dada2
+This step merges paired reads, constructs a sequence table, and assigns taxonomy using the silva database, which lives in 0_training. The output is a phyloseq object, as well as the sequence table and taxonomy table. Time estimate: ~1 hr for a high kit.
+
+```
+sbatch --mail-user=youremail@duke.edu dada2.sh /path/to/XXXXXXXX_results /path/to/metabarcoding.sif
 ```
 
 After running pipeline, file structure should look like this:
