@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -J dada2
 #SBATCH --mem=128000
+#SBATCH --partition scavenger
 #SBATCH --output=dada2.out
 #SBATCH --error=dada2.err
 #SBATCH --mail-type=FAIL
