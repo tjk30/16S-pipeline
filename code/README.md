@@ -39,6 +39,7 @@ Save as a tab delimited text file and upload to server
   XXXXXXXX_results
     0_mapping
       MappingFile.txt
+      barcodes.tsv
 ```
 
 After running pipeline, file structure should look like this:
