@@ -10,6 +10,9 @@
 # USAGE: sbatch --mail-user=<youremail>@duke.edu 3_sync_barcodes.sh /path/to/XXXXXXXX_results 
 
 PATH1=$1
+mkdir 2_sync_barcodes
+mkdir 2_sync_barcodes/run1
+
 #Since we just filtered the Forward and Reverse reads, this step 
 #ensures the index files also drop any reads removed in the prior step. 
 
