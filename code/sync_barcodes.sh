@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH -J sync_barcodes
+#SBATCH --partition scavenger
 #SBATCH --mem=16000
 #SBATCH --output=sync_barcodes.out
 #SBATCH --error=sync_barcodes.err
