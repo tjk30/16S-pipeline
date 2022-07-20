@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH -J bcl2fastq
+#SBATCH --partition scavenger
 #SBATCH --mem=64000
 #SBATCH --output=bcl2fastq.out
 #SBATCH --error=bcl2fastq.err
