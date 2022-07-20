@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH -J remove_primers
+#SBATCH --partition scavenger
 #SBATCH --mem=16000
 #SBATCH --output=remove_primers.out
 #SBATCH --error=remove_primers.err
