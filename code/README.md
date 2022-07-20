@@ -1,1 +1,19 @@
 
+# Setup
+## Install qiime2 in your DCC folder
+qiime2 overwrites R within the container, making it impossible to access R packages such as dada2, so it has to be installed separately: https://docs.qiime2.org/2022.2/install/native/
+```{bash}
+cd /hpc/group/ldavidlab/users/<your-netID>
+mkdir modules
+srun -p scavenger --pty /bin/bash
+module load Anaconda3/5.1.0 #or use whatever the latest version of Anaconda is
+wget https://data.qiime2.org/distro/core/qiime2-2022.2-py38-linux-conda.yml
+conda env create -p /hpc/group/ldavidlab/users/<your-netID>/modules/qiime2-env --file qiime2-2022.2-py38-linux-conda.yml
+# OPTIONAL CLEANUP
+rm qiime2-2022.2-py38-linux-conda.yml
+```
+
+the -p flag needs to be used instead of the -n flag so that it is installed in your directory in the DCC, and not in your /home directory.
+```{bash}
+conda activate /hpc/group/ldavidlab/users/<your-netID>/modules/qiime2-env
+```
