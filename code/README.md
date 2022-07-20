@@ -17,3 +17,30 @@ the -p flag needs to be used instead of the -n flag so that it is installed in y
 ```{bash}
 conda activate /hpc/group/ldavidlab/users/<your-netID>/modules/qiime2-env
 ```
+
+## Upload sample sheet
+
+## Create and upload mapping file
+If you haven’t made one already - can grab golay barcode, linker and primer name from:
+Primer Plate Tracking Sheets UPDATED (hkd2@duke.edu) on box
+Under the ‘Reverse Primer Constructs’ tab; Use the filter to select the plate and column of
+interest
+Mapping file :: Primer Plate Tracking Sheet
+Barcode Seqeunce :: Golay Barcode
+LinkerPrimerSequence :: RC of Illumina 3’ Adapter
+Primer ID :: Name
+Save as a tab delimited text file and upload to server
+
+## File structure
+```
+/path/to/seqdata
+  180425_MN00462_0058_A000H2GY73_MV
+  SampleSheet.csv
+  XXXXXXXX_results
+    0_data_raw
+      Undetermined_R1.fastq
+      Undetermined_R2.fastq
+      Undetermined_I1.fastq
+    0_mapping
+      MappingFile.txt
+```
