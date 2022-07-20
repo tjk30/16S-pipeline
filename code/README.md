@@ -37,10 +37,30 @@ Save as a tab delimited text file and upload to server
   180425_MN00462_0058_A000H2GY73_MV
   SampleSheet.csv
   XXXXXXXX_results
-    0_data_raw
+    0_mapping
+      MappingFile.txt
+```
+
+After running pipeline, file structure should look like this:
+
+```
+/path/to/seqdata
+  180425_MN00462_0058_A000H2GY73_MV
+  SampleSheet.csv
+  XXXXXXXX_results
+    0_mapping
+      MappingFile.txt
+      barcodes.tsv
+    0_raw_all
       Undetermined_R1.fastq
       Undetermined_R2.fastq
       Undetermined_I1.fastq
-    0_mapping
-      MappingFile.txt
+    1_remove_primers
+      run1
+    2_sync_barcodes
+      run1
+    3_demultiplex
+      demuxd_reads
+    4_filter
+    
 ```
