@@ -7,8 +7,10 @@
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 
-# USAGE: sbatch --mail-user=youremail@duke.edu 4_demultiplex.sh /path/to/seqdata /path/to/qiime2-env
+# USAGE: sbatch --mail-user=youremail@duke.edu 4_demultiplex.sh /path/to/XXXXXXXX_results /path/to/qiime2-env
 cd $1
+mkdir 3_demultiplex
+mkdir 3_demultiplex/demuxd_reads
 
 INPUT=2_sync_barcodes/run1
 OUTPUT=3_demultiplex
