@@ -104,7 +104,7 @@ sbatch --mail-user=youremail@duke.edu 5_filtering.sh /path/to/seqdata/XXXXXXXX_r
 This step merges paired reads, constructs a sequence table, and assigns taxonomy using the silva database, which lives in 0_training. The output is a phyloseq object, as well as the sequence table and taxonomy table. Time estimate: ~1 hr for a high kit.
 
 ```
-sbatch --mail-user=youremail@duke.edu dada2.sh /path/to/XXXXXXXX_results /path/to/metabarcoding.sif
+sbatch --mail-user=youremail@duke.edu 6_dada2.sh /path/to/XXXXXXXX_results /path/to/metabarcoding.sif /path/to/0_training
 ```
 
 After running pipeline, file structure should look like this:
@@ -115,7 +115,7 @@ After running pipeline, file structure should look like this:
   SampleSheet.csv
   XXXXXXXX_results
     0_mapping
-      MappingFile.txt
+      mapping.txt
       barcodes.tsv
     0_raw_all
       Undetermined_R1.fastq
@@ -128,5 +128,6 @@ After running pipeline, file structure should look like this:
     3_demultiplex
       demuxd_reads
     4_filter
+    5_dada2
     
 ```
