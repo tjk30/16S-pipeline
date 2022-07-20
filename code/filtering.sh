@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -J filtering
 #SBATCH --mem=64000
+#SBATCH --partition scavenger
 #SBATCH --output=filtering.out
 #SBATCH --error=filtering.err
 #SBATCH --mail-type=FAIL
