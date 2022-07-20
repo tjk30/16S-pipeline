@@ -7,7 +7,7 @@
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 
-# USAGE: sbatch --mail-user=<youremail>@duke.edu sync_barcodes.sh /path/to/XXXXXXXX_results 
+# USAGE: sbatch --mail-user=<youremail>@duke.edu 3_sync_barcodes.sh /path/to/XXXXXXXX_results 
 
 PATH1=$1
 #Since we just filtered the Forward and Reverse reads, this step 
