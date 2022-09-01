@@ -26,7 +26,13 @@ I uploaded the files to /hpc/group/ldavidlab/modules/silva-database, but in case
 scp -r /Users/<netID>/Library/CloudStorage/Box-Box/project_davidlab/LAD_LAB_Personnel/Jeff/HARDAC/16S_pipeline_JL21/0_training <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
 
-### Download metabarcoding container
+### Download 16S container
+```
+#navigate to whatever directory you want to store the container in
+curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/16s-analysis.sif
+```
+
+If you wish to also do the dada2 analysis steps on the computing cluster, you will also need to download the metabarcoding container:
 ```
 #navigate to whatever directory you want to store the container in
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/metabarcoding.sif
