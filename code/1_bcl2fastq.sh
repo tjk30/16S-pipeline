@@ -7,7 +7,7 @@
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 
-# USAGE: sbatch bcl2fastq.sh --mail-user=<youremail>@duke.edu /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
+# USAGE: sbatch --mail-user=<youremail>@duke.edu bcl2fastq.sh /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
 cd $1
 cd ..
 now=$(date +'%Y%m%d')
