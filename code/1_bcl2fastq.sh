@@ -2,12 +2,12 @@
 #SBATCH -J bcl2fastq
 #SBATCH --partition scavenger
 #SBATCH --mem=64000
-#SBATCH --output=bcl2fastq.out
-#SBATCH --error=bcl2fastq.err
+#SBATCH --output=bcl2fastq-%j.out
+#SBATCH --error=bcl2fastq-%j.err
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 
-# USAGE: sbatch --mail-user=<youremail>@duke.edu bcl2fastq.sh /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
+# USAGE: sbatch --mail-user=<youremail>@duke.edu 1_bcl2fastq.sh /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
 cd $1
 cd ..
 now=$(date +'%Y%m%d')
