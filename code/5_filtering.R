@@ -2,6 +2,7 @@
 ## Following tutorial http://benjjneb.github.io/dada2_pipeline_MV/tutorial.html
 ## and here http://benjjneb.github.io/dada2_pipeline_MV/bigdata.html
 args <- commandArgs(trailingOnly=TRUE)
+print(paste("Arguments:",args))
 dir <- args[1]
 setwd(dir)
 
