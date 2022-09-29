@@ -37,3 +37,21 @@ If you wish to also do the dada2 analysis steps on the computing cluster, you wi
 #navigate to whatever directory you want to store the container in
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/metabarcoding.sif
 ```
+### Write sbatch scripts
+
+Download the "16S-sbatch-writer.Rmd' R notebook and fill in your run information. Run the code chunks as directed to get the correct submission scripts for each step. NOTE: you must be inside the directory containing all of the .sh scripts before running them. 
+
+For example: 
+```
+cd /path/to/code
+ls
+  1_bcl2fastq.sh
+  2_remove_primers.sh
+  3_sync_barcodes.sh
+  4_demultiplex.sh
+  5_filtering.sh
+  5_filtering.R
+  6_dada2.sh
+  6_dada2.R
+sbatch <your script here>
+```
