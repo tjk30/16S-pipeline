@@ -42,9 +42,8 @@ dir.create(filtpath)
 
 #update trimLeft based on plot output
 # For the first sequencing run
-dir.create(file.path(filtpath,'s1'))
-filtFs.s1 <- file.path(filtpath, 's1', paste0(sample.names.1,"_F_filt.fastq.gz"))
-filtRs.s1 <- file.path(filtpath, 's1', paste0(sample.names.1,"_R_filt.fastq.gz"))
+filtFs.s1 <- file.path(filtpath, paste0(sample.names.1,"_F_filt.fastq.gz"))
+filtRs.s1 <- file.path(filtpath, paste0(sample.names.1,"_R_filt.fastq.gz"))
 for (i in seq_along(fnFs.s1)){
     fastqPairedFilter(c(fnFs.s1[i], fnRs.s1[i]), c(filtFs.s1[i], filtRs.s1[i]),
               #        trimLeft=c(10,0), truncLen=c(150, 150), # Reads look really good quality don't filter here
