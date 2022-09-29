@@ -18,7 +18,7 @@ filtpath <- paste(parent, "/4_filter", sep="")
 # Find filenames ----------------------------------------------------------
 
 # Forward and reverse filenames
-filts.s1 <- list.files(file.path(filtpath,'s1'), full.names=TRUE)
+filts.s1 <- list.files(file.path(filtpath), full.names=TRUE)
 
 # Sort to ensure fileneames are in the same order
 filts.s1 <- sort(filts.s1)
