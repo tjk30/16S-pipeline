@@ -15,9 +15,6 @@ now=$(date +'%Y%m%d')
 outdir=$now'_results'
 mkdir $outdir
 mkdir $outdir/0_data_raw
-mkdir $outdir/0_data_test
 
 singularity exec --bind $parent $2 bcl2fastq -R $1 -o ./0_data_raw --create-fastq-for-index-reads --sample-sheet $3
-
-singularity exec --bind $parent $2 bcl2fastq -R . -o ./0_data_test
 
