@@ -1,0 +1,44 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+mail<-'your-email@duke.edu'
+runfolder<-'/path/to/runfolder'
+container.meta<-'/path/to/metabarcoding.sif'
+container.16s<-'/path/to/16s-analysis.sif'
+sampleSheet<-'SampleSheet.csv'
+techseqs<-'/path/to/techseqs.fa'
+barcodes<-'/path/to/barcodes.tsv'
+mapping<-'/path/to/mapping.txt'
+silva<-'/path/to/silva-database-dir'
+
+# for example
+# mail<- 'tjk30@duke.edu'
+# runfolder<-'/hpc/group/ldavidlab/users/tjk30/2022-08-30_16S-SAGE/220830_MN00462_0233_A000H52VNN'
+# container.meta<-'/hpc/group/ldavidlab/users/tjk30/mb-pipeline/metabarcoding.sif'
+# container.16s<-'/hpc/group/ldavidlab/users/tjk30/16S-pipeline/16s-analysis.sif'
+# sampleSheet<-'20220929_sampleSheet.csv'
+# techseqs<-'/hpc/group/ldavidlab/users/tjk30/16S-pipeline/techseqs.fa'
+# barcodes<-'/hpc/group/ldavidlab/users/tjk30/2022-08-30_16S-SAGE/debug_results/0_mapping/barcodes.txt'
+
+```
+
+```{r}
+print(paste('sbatch',paste0('--mail-user=',mail), '1_bcl2fastq.sh',runfolder,container.16s,sampleSheet))
+```
+
+```{r}
+resFolder<-"XXXXXXXX_results"
+```
+
+```{r}
+print(paste('sbatch',paste0('--mail-user=',mail), '2_remove_barcodes.sh',paste(runfolder,resFolder,"0_data_raw",sep='/'),techseqs))
+print(paste('sbatch',paste0('--mail-user=',mail), '3_sync_barcodes.sh',paste(runfolder,resFolder,sep='/'),container.16s))
+print(paste('sbatch',paste0('--mail-user=',mail), '4_demultiplex.sh',paste(runfolder,resFolder,sep='/'),barcodes, container.16s))
+print(paste('sbatch',paste0('--mail-user=',mail), '5_filtering.sh',paste(runfolder,resFolder,sep='/'),container.16s))
+print(paste('sbatch',paste0('--mail-user=',mail), '6_dada2.sh',paste(runfolder,resFolder,sep='/'),mapping,silva,container.meta))
+
+```
+sbatch --mail-user=youremail@duke.edu 6_dada2.sh /path/to/XXXXXXXX_results /path/to/mapping.txt /path/to/silva-database-dir /path/to/metabarcoding.sif 
