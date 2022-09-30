@@ -6,20 +6,14 @@ See files for example. Used by bcl2fastq script.
 ```
 scp /path/to/SampleSheet.csv netid@dcc-login.oit.duke.edu:/path/to/dest
 ```
-## Download silva database
-```
-scp -r /path/to/project_davidlab/LAD_LAB_Personnel/Jeff/HARDAC/16S_pipeline_JL21/16S_pipeline_JL21/0_training netid@dcc-login.oit.duke.edu:/path/to/dest
-```
-## Create and upload mapping file
-If you haven’t made one already - can grab golay barcode, linker and primer name from:
-Primer Plate Tracking Sheets UPDATED (hkd2@duke.edu) on box
-Under the ‘Reverse Primer Constructs’ tab; Use the filter to select the plate and column of
-interest
+## Create mapping file
+If you haven’t made one already - can grab golay barcode, linker and primer name from: Primer Plate Tracking Sheets UPDATED (hkd2@duke.edu) on box
+Under the ‘Reverse Primer Constructs’ tab; Use the filter to select the plate and column of interest
 Mapping file :: Primer Plate Tracking Sheet
 Barcode Seqeunce :: Golay Barcode
 LinkerPrimerSequence :: RC of Illumina 3’ Adapter
 Primer ID :: Name
-Save as a tab delimited text file and upload to server (see files for ex)
+Save as a tab delimited text file and upload to server (see fileTemplates folder here on Github for examples)
 
 ## File structure
 ```
@@ -77,7 +71,7 @@ sbatch --mail-user=your-email@duke.edu 5_filtering.sh /path/to/runfolder/XXXXXXX
 ```
 
 ### Step 6: Run dada2
-This step merges paired reads, constructs a sequence table, and assigns taxonomy using the silva database, which lives in 0_training. The output is a phyloseq object, as well as the sequence table and taxonomy table. Time estimate: ~1 hr for a high kit. NOTE that this uses the metabarcoding container, as this step requires phyloseq, which cannot be installed in the 16s-analysis container (incompatible)
+This step merges paired reads, constructs a sequence table, and assigns taxonomy using the silva database, which lives in 0_training. The output is a phyloseq object, as well as the sequence table and taxonomy table. Time estimate: ~1 hr for a high kit. NOTE that this uses the metabarcoding container, as this step requires phyloseq, which cannot be installed in the 16s-analysis container (incompatible).
 
 ```
 sbatch --mail-user=your-email@duke.edu 6_dada2.sh /path/to/runfolder/XXXXXXXX_results /path/to/mapping.txt /path/to/silva-database-dir /path/to/metabarcoding.sif
