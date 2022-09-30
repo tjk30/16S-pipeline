@@ -35,7 +35,7 @@ scp -r /Users/<netID>/Library/CloudStorage/Box-Box/project_davidlab/LAD_LAB_Pers
 Required for 2_remove_primers.sh script. 
 ```
 scp /path/to/project_davidlab/LAD_LAB_Personnel/Zack_H/DavidLab/HARDAC_code_archive/DADA2_pipeline/techseqs.fa <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
-
+```
 ### Download 16S container
 ```
 #navigate to whatever directory you want to store the container in
