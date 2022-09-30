@@ -32,14 +32,14 @@ scp -r /Users/<netID>/Library/CloudStorage/Box-Box/project_davidlab/LAD_LAB_Pers
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/16s-analysis.sif
 ```
 
-If you wish to also do the dada2 analysis steps on the computing cluster, you will also need to download the metabarcoding container:
+If you wish to also do step 6 (6_dada2) on the computing cluster, you will also need to download the metabarcoding container:
 ```
 #navigate to whatever directory you want to store the container in
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/metabarcoding.sif
 ```
 ### Write sbatch scripts
 
-Download the "16S-sbatch-writer.Rmd' R notebook and fill in your run information. Run the code chunks as directed to get the correct submission scripts for each step. NOTE: you must be inside the directory containing all of the .sh scripts before running them. 
+Download the "16S-sbatch-writer.Rmd' R notebook and fill in your run information. Run the code chunks as directed to get the correct submission scripts for each step. You can then copy/paste the submission script into the terminal. NOTE: you must be inside the DCC directory containing all of the .sh scripts before submitting them. 
 
 For example: 
 ```
