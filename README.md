@@ -17,7 +17,12 @@ git clone git@github.com:tjk30/16S-pipeline.git
 #"IlluminaRunFolder will look something like "211019_MN00462_0194_A000H3L2M7"
 scp -r /path/to/your/<IlluminaRunFolder> <your-netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
-
+### Upload barcode and mapping files
+See /code folder for template files. This files supply the barcodes for demultiplexing (barcodes.tsv) and then sample metadata (mapping.txt)
+```
+scp /path/to/barcodes.tsv <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
+scp /path/to/mapping.txt <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
+```
 
 ### Upload silva database
 I uploaded the files to /hpc/group/ldavidlab/modules/silva-database, but in case you can't access them from there for some reason, you can also upload them to the DCC from Box:
@@ -25,6 +30,11 @@ I uploaded the files to /hpc/group/ldavidlab/modules/silva-database, but in case
 ```
 scp -r /Users/<netID>/Library/CloudStorage/Box-Box/project_davidlab/LAD_LAB_Personnel/Jeff/HARDAC/16S_pipeline_JL21/0_training <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
+
+### upload techseqs.fa file
+Required for 2_remove_primers.sh script. 
+```
+scp /path/to/project_davidlab/LAD_LAB_Personnel/Zack_H/DavidLab/HARDAC_code_archive/DADA2_pipeline/techseqs.fa <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 
 ### Download 16S container
 ```
