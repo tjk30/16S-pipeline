@@ -22,6 +22,7 @@ Save as a tab delimited text file and upload to server (see fileTemplates folder
   SampleSheet.csv
 ```
 ## Step 1: bcl2fastq
+Runtime: ~5min
 ```{bash}
 sbatch --mail-user=<youremail>@duke.edu 1_bcl2fastq.sh /path/to/miniseqDir /path/to/metabarcoding.sif SampleSheet.csv
 ```
@@ -47,6 +48,7 @@ scp /path/to/barcodes.tsv netid@dcc-login.oit.duke.edu:/path/to/dest
 scp /path/to/mapping.txt netid@dcc-login.oit.duke.edu:/path/to/dest
 ```
 ### Step 2: Remove primers
+Run time: ~45min
 ```{bash}
 sbatch --mail-user=youremail@duke.edu 2_remove_primers.sh /path/to/0_data_raw /path/to/16s-analysis.sif /path/to/techseqs.fa
 ```
