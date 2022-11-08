@@ -54,20 +54,20 @@ sbatch --mail-user=youremail@duke.edu 2_remove_primers.sh /path/to/0_data_raw /p
 ```
 
 ### Step 3: Sync barcodes
-
+Run time: <5min
 ```
 sbatch --mail-user=your-email@duke.edu 3_sync_barcodes.sh /path/to/runfolder/XXXXXXXX_results /path/to/16s-analysis.sif
 ```
 
 ### Step 4: Demultiplex
 Note: make sure you've uploaded the correct barcodes to the barcodes.tsv file. 
-Time estimate: ~40min for a mid kit
+Run time: ~40min for a mid kit
 ```
 sbatch --mail-user=your-email@duke.edu 4_demultiplex.sh /path/to/runfolder/XXXXXXXX_results /path/to/barcodes.tsv /path/to/16s-analysis.sif
 ```
 
 ### Step 5: Filter
-Time estimate: ~35 min for a high kit.
+Run time: ~35 min for a high kit.
 ```
 sbatch --mail-user=your-email@duke.edu 5_filtering.sh /path/to/runfolder/XXXXXXXX_results /path/to/16s-analysis.sif
 ```
