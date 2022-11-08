@@ -17,14 +17,13 @@ PATH1=$1
 cd $1
 cd ..
 mkdir 1_remove_primers
-mkdir 1_remove_primers/run1
 
 # For Sequencing Run 1
 singularity exec --bind $PWD,$3 $2 trimmomatic PE -phred64  \
 $PATH1/Undetermined_S0_L001_R1_001.fastq.gz \
 $PATH1/Undetermined_S0_L001_R2_001.fastq.gz \
-./1_remove_primers/run1/R1.paired.fastq.gz \
-./1_remove_primers/run1/R1.unpaired.fastq.gz \
-./1_remove_primers/run1/R2.paired.fastq.gz \
-./1_remove_primers/run1/R2.unpaired.fastq.gz \
+./1_remove_primers/R1.paired.fastq.gz \
+./1_remove_primers/R1.unpaired.fastq.gz \
+./1_remove_primers/R2.paired.fastq.gz \
+./1_remove_primers/R2.unpaired.fastq.gz \
 ILLUMINACLIP:$3:2:30:10 
