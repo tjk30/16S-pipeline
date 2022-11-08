@@ -33,7 +33,7 @@ res<-"/path/to/XXXXXXXX_results"
 ```
 
 ```{r}
-print(paste('sbatch',paste0('--mail-user=',mail), '2_remove_primers.sh',file.path(res,"0_data_raw"),techseqs))
+print(paste('sbatch',paste0('--mail-user=',mail), '2_remove_primers.sh',file.path(res,"0_data_raw"),container.16s,techseqs))
 print(paste('sbatch',paste0('--mail-user=',mail), '3_sync_barcodes.sh',res,container.16s))
 print(paste('sbatch',paste0('--mail-user=',mail), '4_demultiplex.sh',res,barcodes, container.16s))
 print(paste('sbatch',paste0('--mail-user=',mail), '5_filtering.sh',res,container.16s))
