@@ -11,7 +11,7 @@
 
 cd $1
 
-INPUT=$1/2_sync-barcodes/for-qiime2
+INPUT=$1/2_sync_barcodes/for-qiime2
 mkdir $1/3_demultiplex
 OUTPUT=$1/3_demultiplex
 mkdir $1/3_demultiplex/demuxd_reads
