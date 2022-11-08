@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J 6_dada2
 #SBATCH --mem=128000
-#SBATCH --output=6_dada2-%J.out
-#SBATCH --error=6_dada2-%J.err
+#SBATCH --output=6_dada2.out
+#SBATCH --error=6_dada2.err
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 #SBATCH -p scavenger 
@@ -13,3 +13,6 @@ cd $1
 mkdir 5_dada2
 singularity exec --bind $1,$wd,$2,$3 $4 Rscript 6_dada2.R $1 $2 $3
 
+# move .err and .out files
+mv $PWD/6_dada2.out $1/Reports
+mv $PWD/6_dada2.err $1/Reports
