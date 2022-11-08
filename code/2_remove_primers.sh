@@ -2,8 +2,8 @@
 #SBATCH -J 2_remove_primers
 #SBATCH --partition scavenger
 #SBATCH --mem=16000
-#SBATCH --output=2_remove_primers-%J.out
-#SBATCH --error=2_remove_primers-%J.err
+#SBATCH --output=2_remove_primers.out
+#SBATCH --error=2_remove_primers.err
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 
@@ -13,6 +13,7 @@
 # -trimlog trimLog.log 
 
 # USAGE: sbatch --mail-user=youremail@duke.edu 2_remove_primers.sh /path/to/0_data_raw /path/to/16s-analysis.sif /path/to/techseqs.fa
+codedir=$PWD
 PATH1=$1
 cd $1
 cd ..
@@ -27,3 +28,7 @@ $PATH1/Undetermined_S0_L001_R2_001.fastq.gz \
 ./1_remove_primers/R2.paired.fastq.gz \
 ./1_remove_primers/R2.unpaired.fastq.gz \
 ILLUMINACLIP:$3:2:30:10 
+
+# move .err and .out files
+mv $codedir/2_remove_primers.out ./Reports
+mv $codedir/2_remove_primers.err ./Reports
