@@ -30,9 +30,9 @@ out2=$PATH1/2_sync_barcodes/R2.paired.fastq.gz \
 outs=$PATH1/2_sync_barcodes/singletons.R2.fq repair
 
 # Rename output files to be accepted by qiime2 demultiplex step
-mv $PATH1/2_repair/R1.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/forward.fastq.gz
-mv $PATH1/2_repair/R2.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/reverse.fastq.gz
-mv $PATH1/2_repair/I1.synced.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/barcodes.fastq.gz
+mv $PATH1/2_sync_barcodes/R1.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/forward.fastq.gz
+mv $PATH1/2_sync_barcodes/R2.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/reverse.fastq.gz
+mv $PATH1/2_sync_barcodes/I1.synced.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/barcodes.fastq.gz
 
 # move .out and .err files
 mv $codedir/3_sync_barcodes.out $PATH1/Reports
