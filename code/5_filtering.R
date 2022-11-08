@@ -16,7 +16,8 @@ path <- dir
 #note s1 - is run number
 #note r1 - is forward, r2 - is reverse
 # Forward and Reverse Filenames
-files <- list.files(paste(path, "3_demultiplex/demuxd_reads/", sep=""))
+setwd(file.path(path,"3_demultiplex","demuxd_reads"))
+files <- list.files()
 fnFs.s1 <- files[grepl("_R1_", files)]
 fnRs.s1 <- files[grepl("_R2_", files)]
 
