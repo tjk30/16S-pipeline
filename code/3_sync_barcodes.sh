@@ -2,14 +2,14 @@
 #SBATCH -J 3_sync_barcodes
 #SBATCH --partition scavenger
 #SBATCH --mem=16000
-#SBATCH --output=3_sync_barcodes-%J.out
-#SBATCH --error=3_sync_barcodes-%J.err
+#SBATCH --output=3_sync_barcodes.out
+#SBATCH --error=3_sync_barcodes.err
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 #SBATCH -p scavenger 
 
 # USAGE: sbatch --mail-user=<youremail>@duke.edu 3_sync_barcodes.sh /path/to/XXXXXXXX_results /path/to/16s-analysis.sif
-
+codedir=$PWD
 PATH1=$1
 cd $PATH1
 mkdir 2_sync_barcodes
@@ -33,3 +33,7 @@ outs=$PATH1/2_sync_barcodes/singletons.R2.fq repair
 mv $PATH1/2_repair/R1.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/forward.fastq.gz
 mv $PATH1/2_repair/R2.paired.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/reverse.fastq.gz
 mv $PATH1/2_repair/I1.synced.fastq.gz $PATH1/2_sync_barcodes/for-qiime2/barcodes.fastq.gz
+
+# move .out and .err files
+mv $codedir/3_sync_barcodes.out $PATH1/Reports
+mv $codedir/3_sync_barcodes.err $PATH1/Reports
