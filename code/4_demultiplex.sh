@@ -1,14 +1,14 @@
 #!/bin/bash
 #SBATCH -J 4_demultiplex
 #SBATCH --mem=64000
-#SBATCH --output=4_demultiplex-%J.out
-#SBATCH --error=4_demultiplex-%J.err
+#SBATCH --output=4_demultiplex.out
+#SBATCH --error=4_demultiplex.err
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-type=END
 #SBATCH -p scavenger 
 
 # USAGE: sbatch --mail-user=youremail@duke.edu 4_demultiplex.sh /path/to/XXXXXXXX_results /path/to/barcodes.tsv /path/to/16s-analysis.sif
-
+codedir=$PWD
 cd $1
 
 INPUT=$1/2_sync_barcodes/for-qiime2
@@ -42,3 +42,8 @@ singularity exec --bind $1,$2 $3 qiime demux emp-paired \
 singularity exec --bind $1,$2 $3 qiime tools export \
   --input-path $OUTPUT/demux-full.qza \
   --output-path $OUTPUT2
+  
+# move output files
+
+mv $codedir/4_demultiplex.out $1/Reports
+mv $codedir/4_demultiplex.err $1/Reports
