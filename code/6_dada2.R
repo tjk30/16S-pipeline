@@ -12,7 +12,7 @@ library(ggplot2); packageVersion("ggplot2")
 library(phyloseq); packageVersion("phyloseq")
 set.seed(4)
 
-mapping <- "0_mapping/mapping.txt"
+mapping <- args[2]
 filtpath <- paste(parent, "/4_filter", sep="")
 
 # Find filenames ----------------------------------------------------------
@@ -47,17 +47,6 @@ derepRs.s1.learn <- derepFastq(filtRs.s1[filts.learn.s1], verbose=TRUE)
 dadaFs.s1.learn <- dada(derepFs.s1.learn, err=NULL, selfConsist=TRUE, multithread=8)
 dadaRs.s1.learn <- dada(derepRs.s1.learn, err=NULL, selfConsist=TRUE, multithread=8)
 rm(derepFs.s1.learn, derepRs.s1.learn)
-
-# # Visualize estimated error rates
-p<- plotErrors(dadaFs.s1.learn[[1]], nominalQ=TRUE)
-ggsave(file.path(parent,
-                 outputDir,
-                 "dada_errors_F_s1.png", plot=p))
-p<- plotErrors(dadaRs.s1.learn[[1]], nominalQ=TRUE)
-ggsave(file.path(parent,
-                 outputDir,
-                 "dada_errors_R_s1.png", plot=p))
-
 
 # Just keep the error profiles
 errFs.s1 <- dadaFs.s1.learn[[1]]$err_out
@@ -130,7 +119,7 @@ seqtab <- seqtab.nochim
 
 # Assign Taxonomy ---------------------------------------------------------
 # Following: http://benjjneb.github.io/dada2_pipeline_MV/species.html
-silva<-args[2]
+silva<-args[3]
 # Assign using Naive Bayes RDP
 taxtab <- assignTaxonomy(colnames(seqtab), file.path(silva,'silva_nr_v123_train_set.fa.gz'), multithread=TRUE)
 
