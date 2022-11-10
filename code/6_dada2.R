@@ -155,5 +155,5 @@ write.table(refseq, file='refseqs.nochim.tsv', quote=FALSE, sep='\t', col.names 
 
 # Combine into phyloseq object
 ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),sample_data(map), tax_table(taxtab))
-saveRDS(ps, paste0(args[3],'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
+saveRDS(ps, paste0(args[1],'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
 
