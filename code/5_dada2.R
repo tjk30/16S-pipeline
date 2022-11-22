@@ -4,7 +4,7 @@
 args <- commandArgs(trailingOnly=TRUE)
 parent<-args[1]
 setwd(parent)
-outputDir<-"5_dada2"
+outputDir<-"4_dada2"
 dir.create(file.path(parent,outputDir)) #make folder for dada2 output files
 
 library(dada2); packageVersion("dada2")
@@ -13,13 +13,13 @@ library(phyloseq); packageVersion("phyloseq")
 set.seed(4)
 
 mapping <- args[2]
-filtpath <- paste(parent, "/4_filter", sep="")
+filtpath <- file.path(parent, "3_filter")
 
 # Find filenames ----------------------------------------------------------
 
 # Forward and reverse filenames
 filts.s1 <- list.files(file.path(filtpath), full.names=TRUE)
-
+paste("found", length(filts.s1), "files:", head(filts.s1))
 # Sort to ensure fileneames are in the same order
 filts.s1 <- sort(filts.s1)
 sample.names.1 <- sapply(strsplit(basename(filts.s1),"_"), `[`, 1)
@@ -121,12 +121,12 @@ seqtab <- seqtab.nochim
 # Following: http://benjjneb.github.io/dada2_pipeline_MV/species.html
 silva<-args[3]
 # Assign using Naive Bayes RDP
-taxtab <- assignTaxonomy(colnames(seqtab), file.path(silva,'silva_nr_v123_train_set.fa.gz'), multithread=TRUE)
+taxtab <- assignTaxonomy(colnames(seqtab), file.path(silva,'silva_nr99_v138.1_train_set.fa.gz'), multithread=TRUE)
 
 # improve with exact genus-species matches 
 # this step is pretty slow, should improve in later releases
 # - note: Not allowing multiple species matches in default setting
-taxtab <- addSpecies(taxtab, file.path(silva,'silva_species_assignment_v123.fa.gz'), verbose=TRUE)
+taxtab <- addSpecies(taxtab, file.path(silva,'silva_species_assignment_v138.1.fa.gz'), verbose=TRUE)
 
 # How many sequences are classified at different levels? (percent)
 colSums(!is.na(taxtab))/nrow(taxtab)
@@ -155,5 +155,5 @@ write.table(refseq, file='refseqs.nochim.tsv', quote=FALSE, sep='\t', col.names 
 
 # Combine into phyloseq object
 ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),sample_data(map), tax_table(taxtab))
-saveRDS(ps, paste0(args[1],'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
-
+setwd(file.path(parent,outputDir))
+saveRDS(ps, paste0(Sys.Date(),'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
