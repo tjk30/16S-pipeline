@@ -16,20 +16,20 @@ path <- dir
 #note s1 - is run number
 #note r1 - is forward, r2 - is reverse
 # Forward and Reverse Filenames
-setwd(file.path(path,"3_demultiplex","demuxd_reads"))
+setwd(file.path(path,"2_remove_primers"))
 files <- list.files()
-fnFs.s1 <- files[grepl("_R1_", files)]
-fnRs.s1 <- files[grepl("_R2_", files)]
+fnFs.s1 <- files[grepl("R1.paired.fastq.gz", files)]
+fnRs.s1 <- files[grepl("R2.paired.fastq.gz", files)]
 
 # Sort to ensure filenames are in the same order
 fnFs.s1 <- sort(fnFs.s1)
 fnRs.s1 <- sort(fnRs.s1)
 
-sample.names.1 <- sapply(strsplit(fnFs.s1,".fastq", fixed=TRUE), `[`, 1)
+sample.names.1 <- sapply(strsplit(fnFs.s1,"R1.paired.fastq", fixed=TRUE), `[`, 1)
 
 # Fully Specify the path for the fnFs and fnRs
-fnFs.s1 <- file.path(path, '3_demultiplex/demuxd_reads/', fnFs.s1)
-fnRs.s1 <- file.path(path, '3_demultiplex/demuxd_reads/', fnRs.s1)
+fnFs.s1 <- file.path(path, '2_remove_primers/', fnFs.s1)
+fnRs.s1 <- file.path(path, '2_remove_primers/', fnRs.s1)
 
 # Examine qulaity profiles of the forward and reverse reads
 p <- plotQualityProfile(fnFs.s1[[1]]) 
@@ -38,7 +38,7 @@ p <- plotQualityProfile(fnRs.s1[[1]])
 ggsave('Reverse_quality_profile_s1.png', plot=p)
 
 # Perform filtering and trimming
-filtpath <- file.path(path, "4_filter")
+filtpath <- file.path(path, "3_filter")
 dir.create(filtpath)
 
 #update trimLeft based on plot output
