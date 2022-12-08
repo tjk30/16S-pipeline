@@ -2,13 +2,15 @@
 # Setup
 
 ## Create mapping file
-If you haven’t made one already - can grab golay barcode, linker and primer name from: Primer Plate Tracking Sheets UPDATED (hkd2@duke.edu) on box
+LAD lab members: If you haven’t made one already - can grab golay barcode, linker and primer name from: Primer Plate Tracking Sheets UPDATED (hkd2@duke.edu) on box
 Under the ‘Reverse Primer Constructs’ tab; Use the filter to select the plate and column of interest
 Mapping file :: Primer Plate Tracking Sheet
 Barcode Seqeunce :: Golay Barcode
 LinkerPrimerSequence :: RC of Illumina 3’ Adapter
 Primer ID :: Name
 Save as a tab delimited text file and upload to server (see fileTemplates folder here on Github for examples)
+
+Otherwise, create a mapping file with your barcode and linker sequences following the template mapping.txt file in this repository. Also make a barcodes.txt (or .tsv) file with your barcode sequences in the correct input format for qiime2 demultiplexing (see /fileTemplates for example).
 
 ## File structure
 ```
