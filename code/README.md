@@ -21,11 +21,11 @@ Otherwise, create a mapping file with your barcode and linker sequences followin
 ## Step 1: bcl2fastq
 Runtime: ~5min
 ```{bash}
-sbatch --mail-user=<youremail>@duke.edu 1_bcl2fastq.sh /path/to/miniseqDir /path/to/metabarcoding.sif 
+sbatch --mail-user=<youremail>@duke.edu 1_bcl2fastq.sh /path/to/miniseqDir /path/to/16s-analysis.sif 
 ```
 for example
 ```
-sbatch --mail-user tjk30@duke.edu 1_bcl2fastq.sh /hpc/group/ldavidlab/users/tjk30/2022-08-30_16S-SAGE/220830_MN00462_0233_A000H52VNN /hpc/group/ldavidlab/users/tjk30/mb-pipeline/metabarcoding.sif 
+sbatch --mail-user tjk30@duke.edu 1_bcl2fastq.sh /hpc/group/ldavidlab/users/tjk30/2022-08-30_16S-SAGE/220830_MN00462_0233_A000H52VNN /hpc/group/ldavidlab/users/tjk30/16S-pipeline/16s-analysis.sif 
 ```
 After running this, your file structure should look like this:
 ```
