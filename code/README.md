@@ -46,7 +46,7 @@ sbatch --mail-user=your-email@duke.edu 2_demultiplex.sh /path/to/runfolder/XXXXX
 ```
 
 ### Step 3: Trim primers
-Trimmomatic distributes a fasta file with all of the Illumina adapters (techseqs.fa). I have this stored in /hpc/group/ldavidlab/users/tjk30/16S-pipeline/
+
 ```
 sbatch --mail-user=your-email@duke.edu 3_remove_primers.sh /path/to/runfolder/XXXXXXXX_results /path/to/techseqs.fa /path/to/16s-analysis.sif 
 ```
