@@ -25,10 +25,16 @@ scp /path/to/mapping.txt <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
 
 ### Upload silva database
-I uploaded the files to /hpc/group/ldavidlab/modules/silva-database, but in case you can't access them from there for some reason, you can also upload them to the DCC from Box:
 
+DADA2 performs taxonomic assignment by using a fasta file. SILVA (https://www.arb-silva.de/) maintains one popular 16S database. The dada2 formatted version can be found here: https://zenodo.org/record/4587955#.Y30XnezMK3I
+
+You are welcome to use the v138.1 database I have already downloaded and stored in /hpc/group/ldavidlab/users/tjk30/16S-pipeline/silva-database.
+
+Otherwise, you can download the files locally, then upload to DCC:
 ```
-scp -r /Users/<netID>/Library/CloudStorage/Box-Box/project_davidlab/LAD_LAB_Personnel/Jeff/HARDAC/16S_pipeline_JL21/0_training <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
+scp /path/to/silva_nr99_v138.1_train_set.fa.gz <netid>@dcc-login.oit.duke.edu:/hpc/group/ldavidlab/users/<netid>/
+scp /path/to/silva_nr99_v138.1_wSpecies_train_set.fa.gz <netid>@dcc-login.oit.duke.edu:/hpc/group/ldavidlab/users/<netid>/
+scp /path/to/silva_species_assignment_v138.1.fa.gz <netid>@dcc-login.oit.duke.edu:/hpc/group/ldavidlab/users/<netid>/
 ```
 
 ### upload techseqs.fa file
