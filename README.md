@@ -38,7 +38,7 @@ scp /path/to/silva_species_assignment_v138.1.fa.gz <netid>@dcc-login.oit.duke.ed
 ```
 
 ### upload techseqs.fa file
-Required for 2_remove_primers.sh script. 
+Trimmomatic distributes a fasta file with all of the Illumina adapters (techseqs.fa). I have this stored on the DCC in /hpc/group/ldavidlab/users/tjk30/16S-pipeline/. You can also download it from Box: 
 ```
 scp /path/to/project_davidlab/LAD_LAB_Personnel/Zack_H/DavidLab/HARDAC_code_archive/DADA2_pipeline/techseqs.fa <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
@@ -47,8 +47,7 @@ scp /path/to/project_davidlab/LAD_LAB_Personnel/Zack_H/DavidLab/HARDAC_code_arch
 #navigate to whatever directory you want to store the container in
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/16s-analysis.sif
 ```
-
-If you wish to also do step 6 (6_dada2) on the computing cluster, you will also need to download the metabarcoding container:
+Step 5 (5_dada2) requires the metabarcoding container:
 ```
 #navigate to whatever directory you want to store the container in
 curl -O https://research-singularity-registry.oit.duke.edu/lad-lab/metabarcoding.sif
@@ -62,12 +61,11 @@ For example:
 cd /path/to/code
 ls
   1_bcl2fastq.sh
-  2_remove_primers.sh
-  3_sync_barcodes.sh
-  4_demultiplex.sh
-  5_filtering.sh
-  5_filtering.R
-  6_dada2.sh
-  6_dada2.R
+  2_demultiplex.sh
+  3_remove_primers.sh
+  4_filtering.sh
+  4_filtering.R
+  5_dada2.sh
+  5_dada2.R
 sbatch <your script here>
 ```
