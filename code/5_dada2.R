@@ -3,6 +3,7 @@
 ## and here http://benjjneb.github.io/dada2_pipeline_MV/tutorial.html
 args <- commandArgs(trailingOnly=TRUE)
 parent<-args[1]
+print(paste("parent directory set to",parent))
 setwd(parent)
 outputDir<-"4_dada2"
 dir.create(file.path(parent,outputDir)) #make folder for dada2 output files
@@ -12,7 +13,6 @@ library(ggplot2); packageVersion("ggplot2")
 library(phyloseq); packageVersion("phyloseq")
 set.seed(4)
 
-mapping <- args[2]
 filtpath <- file.path(parent, "3_filter")
 
 # Find filenames ----------------------------------------------------------
@@ -22,16 +22,18 @@ filts.s1 <- list.files(file.path(filtpath), full.names=TRUE)
 paste("found", length(filts.s1), "files:", head(filts.s1))
 # Sort to ensure fileneames are in the same order
 filts.s1 <- sort(filts.s1)
-sample.names.1 <- sapply(strsplit(basename(filts.s1),"_"), `[`, 1)
+print(paste("Found", length(filts.s1), "files"))
+sample.names.1 <- sapply(strsplit(basename(filts.s1),"\\."), `[`, 1)
 names(filts.s1) <- sample.names.1
-
+print(paste("sample names set to:", head(sample.names.1)))
 
 # Separate forward and reverse samples
 filtFs.s1 <- filts.s1[grepl("_F_filt",filts.s1)]
 filtRs.s1 <- filts.s1[grepl("_R_filt",filts.s1)]
-
-sample.names.1 <- sapply(strsplit(basename(filtFs.s1), "_"), `[`, 1)
-
+print(paste("Found", length(filtFs.s1), "forward read files"))
+print(paste("Found", length(filtRs.s1), "reverse read files"))
+sample.names.1 <- sapply(strsplit(basename(filtFs.s1), "\\."), `[`, 1)
+print(paste("sample names set to:", head(sample.names.1)))
 # Dereplication -----------------------------------------------------------
 
 # Learn Error Rates
@@ -119,7 +121,7 @@ seqtab <- seqtab.nochim
 
 # Assign Taxonomy ---------------------------------------------------------
 # Following: http://benjjneb.github.io/dada2_pipeline_MV/species.html
-silva<-args[3]
+silva<-args[2]
 # Assign using Naive Bayes RDP
 taxtab <- assignTaxonomy(colnames(seqtab), file.path(silva,'silva_nr99_v138.1_train_set.fa.gz'), multithread=TRUE)
 
@@ -133,12 +135,6 @@ colSums(!is.na(taxtab))/nrow(taxtab)
 
 
 # Make phyloseq object ----------------------------------------------------
-
-# Import mapping 
-map1 <- read.delim(mapping, stringsAsFactors = F)
-map1 <- map1[map1$X.SampleID %in% sample.names.1,]
-map <- as.data.frame(map1) # without this line get sam_data slot empty error from phyloseq
-rownames(map) <- map$X.SampleID
 
 # Make refseq object and extract sequences from tables
 #refseq <- DNAStringSet(colnames(seqtab))
@@ -154,6 +150,7 @@ write.table(taxtab, file='taxtab.nochim.tsv', quote=FALSE, sep='\t')
 write.table(refseq, file='refseqs.nochim.tsv', quote=FALSE, sep='\t', col.names = F)
 
 # Combine into phyloseq object
-ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),sample_data(map), tax_table(taxtab))
+ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),
+               tax_table(taxtab))
 setwd(file.path(parent,outputDir))
 saveRDS(ps, paste0(Sys.Date(),'_phyloseq.rds')) # will save phyloseq object with name YYYYMMDD_phyloseq.rds
