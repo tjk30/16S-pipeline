@@ -17,11 +17,10 @@ git clone git@github.com:tjk30/16S-pipeline.git
 #"IlluminaRunFolder will look something like "211019_MN00462_0194_A000H3L2M7"
 scp -r /path/to/your/<IlluminaRunFolder> <your-netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
-### Upload barcode and mapping files
-See /code folder for template files. This files supply the barcodes for demultiplexing (barcodes.tsv) and then sample metadata (mapping.txt)
+### Upload barcode file
+See /code folder for template file. This file supplies the barcodes for demultiplexing (barcodes.tsv).
 ```
 scp /path/to/barcodes.tsv <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
-scp /path/to/mapping.txt <netid>@dcc-login.oit.duke.edu:/path/to/DCC/folder
 ```
 
 ### Upload silva database
