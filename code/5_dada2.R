@@ -136,18 +136,10 @@ colSums(!is.na(taxtab))/nrow(taxtab)
 
 # Make phyloseq object ----------------------------------------------------
 
-# Make refseq object and extract sequences from tables
-#refseq <- DNAStringSet(colnames(seqtab))
-refseq <- colnames(seqtab)
-names(refseq) <- paste0('seq_', 1:length(refseq))
-colnames(seqtab) <- names(refseq[match(colnames(seqtab), refseq)])
-rownames(taxtab) <- names(refseq[match(rownames(taxtab), refseq)])
-
-# Write the taxtable, seqtable, and refseq to ascii ------------------------
+# Write the taxtable, seqtable, to ascii ------------------------
 setwd(file.path(parent,outputDir))
 write.table(seqtab, file='seqtab.nochim.tsv', quote=FALSE, sep='\t')
 write.table(taxtab, file='taxtab.nochim.tsv', quote=FALSE, sep='\t')
-write.table(refseq, file='refseqs.nochim.tsv', quote=FALSE, sep='\t', col.names = F)
 
 # Combine into phyloseq object
 ps <- phyloseq(otu_table(seqtab, taxa_are_rows = FALSE),
