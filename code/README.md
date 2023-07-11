@@ -63,4 +63,4 @@ This step merges paired reads, constructs a sequence table, and assigns taxonomy
 sbatch --mail-user=youremail@duke.edu 5_dada2.sh /path/to/XXXXXXXX_results /path/to/silva-database-dir /path/to/metabarcoding.sif 
 ```
 
-This will write a year-mm-dd_phyloseq.rds file, which is a phyloseq object with your count data and taxonomic assignment. You can then download this file and add your sample data locally. NOTE: The way Jeff (or Justin?) originally wrote the code, the sequences are all renamed from the actual sequence to "seq_1, seq_2, [etc]" in generating the phyloseq object. 
+This will write a year-mm-dd_phyloseq.rds file, which is a phyloseq object with your count data and taxonomic assignment. You can then download this file and add your sample data locally. 
