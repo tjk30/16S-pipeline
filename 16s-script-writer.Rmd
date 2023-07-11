@@ -37,6 +37,6 @@ resFolder<-"/path/to/XXXXXXXX_results"
 print(paste('sbatch',paste0('--mail-user=',mail), '2_demultiplex.sh',resFolder,barcodes, container.16s))
 print(paste('sbatch',paste0('--mail-user=',mail), '3_remove_primers.sh',resFolder,techseqs, container.16s))
 print(paste('sbatch',paste0('--mail-user=',mail), '4_filtering.sh',resFolder,container.16s))
-print(paste('sbatch',paste0('--mail-user=',mail), '5_dada2-no-mapping.sh',resFolder,silva,container.meta))
+print(paste('sbatch',paste0('--mail-user=',mail), '5_dada2.sh',resFolder,silva,container.meta))
 
 ```
