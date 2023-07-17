@@ -11,6 +11,7 @@ dir.create(file.path(parent,outputDir)) #make folder for dada2 output files
 library(dada2); packageVersion("dada2")
 library(ggplot2); packageVersion("ggplot2")
 library(phyloseq); packageVersion("phyloseq")
+library(ShortRead); packageVersion("ShortRead")
 set.seed(4)
 
 filtpath <- file.path(parent, "3_filter")
@@ -39,7 +40,16 @@ print(paste("sample names set to:", head(sample.names.1)))
 # Learn Error Rates
 ## aim to learn from about 1M total reads - so just need subset of samples 
 ## source: http://benjjneb.github.io/dada2_pipeline_MV/bigdata.html
-filts.learn.s1 <- sample(sample.names.1, 36)
+### calculate how many files needed to get to ~1 million reads
+fq<-countFastq(file.path(filtpath),pattern="F") # calculate reads/sample
+avgReads=mean(fq$records)
+n=1000000/avgReads # number of samples needed to get to 1 million reads
+if (n > length(sample.names.1)) {
+    print('not enough reads to learn error rates. Target: 1 million total reads.')
+    print(paste('Using all reads available:',sum(fq$records)))
+    n=length(sample.names.1) # use all samples
+}
+filts.learn.s1 <- sample(sample.names.1, ceiling(n)) # round up to nearest whole number of samples
 
 derepFs.s1.learn <- derepFastq(filtFs.s1[filts.learn.s1], verbose=TRUE)
 derepRs.s1.learn <- derepFastq(filtRs.s1[filts.learn.s1], verbose=TRUE)
