@@ -39,6 +39,6 @@ resFolder<-"/hpc/group/ldavidlab/users/tjk30/16S-GMAP-HOPE3/20231116_results/"
 print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/2_demultiplex.sh'),resFolder,barcodes, container.qiime))
 print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/3_remove_primers.sh'),resFolder,techseqs, container.meta))
 print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/4_filtering.sh'),resFolder,container.meta,codedir))
-print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/5_dada2.sh'),resFolder,silva,container.meta))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/5_dada2.sh'),resFolder,silva,container.meta,codedir))
 
 ```
