@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Script writer: 16S Pipeline"
 output: html_notebook
 ---
 
@@ -12,31 +12,33 @@ techseqs<-'/path/to/techseqs.fa'
 barcodes<-'/path/to/barcodes.tsv'
 mapping<-'/path/to/mapping.txt'
 silva<-'/path/to/silva-database-dir'
+codedir='/path/to/where/code/is'
 
 # for example
  mail<- 'tjk30@duke.edu'
- runfolder<-'/hpc/group/ldavidlab/users/tjk30/Cambodia-16S-20230131/230130_MN00462_0024_A000H5G7MH'
- container.meta<-'/hpc/group/ldavidlab/users/tjk30/mb-pipeline-old/metabarcoding.sif'
- container.16s<-'/hpc/group/ldavidlab/users/tjk30/16S-pipeline/16s-analysis.sif'
+ runfolder<-'/hpc/group/ldavidlab/users/tjk30/16S-GMAP-HOPE3/231101_MN00462_0075_A000H5TJLY'
+ container.meta<-'/hpc/group/ldavidlab/metabarcoding.sif'
+ container.qiime<-'/hpc/group/ldavidlab/qiime2.sif'
  techseqs<-'/hpc/group/ldavidlab/users/tjk30/16S-pipeline/techseqs.fa'
- barcodes<-'/hpc/group/ldavidlab/users/tjk30/Cambodia-16S-20230131/barcodes.txt'
+ barcodes<-'/hpc/group/ldavidlab/users/tjk30/16S-GMAP-HOPE3/Allbarcodes.txt'
  silva<-'/hpc/group/ldavidlab/users/tjk30/16S-pipeline/silva-database'
+ codedir='/hpc/group/ldavidlab/users/tjk30/16S-pipeline/16S-pipeline/code'
 ```
 
 ```{r}
-print(paste('sbatch',paste0('--mail-user=',mail), '1_bcl2fastq.sh',runfolder,container.16s))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ',codedir,'/1_bcl2fastq.sh'),runfolder,container.meta))
 ```
 
 ```{r}
 resFolder<-"/path/to/XXXXXXXX_results"
 # for example
-#resFolder<-"/hpc/group/ldavidlab/users/tjk30/Cambodia-16S-20230131/20230201_results/"
+resFolder<-"/hpc/group/ldavidlab/users/tjk30/16S-GMAP-HOPE3/20231116_results/"
 ```
 
 ```{r}
-print(paste('sbatch',paste0('--mail-user=',mail), '2_demultiplex.sh',resFolder,barcodes, container.16s))
-print(paste('sbatch',paste0('--mail-user=',mail), '3_remove_primers.sh',resFolder,techseqs, container.16s))
-print(paste('sbatch',paste0('--mail-user=',mail), '4_filtering.sh',resFolder,container.16s))
-print(paste('sbatch',paste0('--mail-user=',mail), '5_dada2.sh',resFolder,silva,container.meta))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/2_demultiplex.sh'),resFolder,barcodes, container.qiime))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/3_remove_primers.sh'),resFolder,techseqs, container.meta))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/4_filtering.sh'),resFolder,container.meta,codedir))
+print(paste('sbatch',paste0('--mail-user=',mail, ' ', codedir,'/5_dada2.sh'),resFolder,silva,container.meta))
 
 ```
