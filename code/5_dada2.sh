@@ -7,6 +7,6 @@
 #SBATCH --mail-type=END
 #SBATCH -p scavenger 
 
-# USAGE: sbatch --mail-user=youremail@duke.edu 5_dada2.sh /path/to/XXXXXXXX_results /path/to/silva-database-dir /path/to/metabarcoding.sif 
+# USAGE: sbatch --mail-user=youremail@duke.edu 5_dada2.sh /path/to/XXXXXXXX_results /path/to/silva-database-dir /path/to/metabarcoding.sif /path/to/where-scripts-are-stored
 
-singularity exec --bind $1,$PWD,$2 $3 Rscript 5_dada2.R $1 $2 
+singularity exec --bind $1,$PWD,$2,$4 $3 Rscript $4/5_dada2.R $1 $2 
